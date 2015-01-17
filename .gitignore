@@ -1,5 +1,8 @@
-# Object file
-*.o
-
-# Ada Library Information
-*.ali
+*.aux
+*.log
+*.nav
+*.out
+*.pdf.mk
+*.snm
+*.toc
+*.bib

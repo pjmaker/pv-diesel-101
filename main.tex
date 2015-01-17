@@ -12,6 +12,12 @@
 \mode<presentation>{\usetheme{Pjm}}
 \usepackage{graphics}
 \usepackage{fancyvrb}
+\newenvironment{code}
+{\Verbatim[fontfamily=courier,%
+numbers=right,stepnumber=5,%
+firstnumber=\the\inputlineno]}%
+{\endVerbatim}
+
 \usepackage[english]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
@@ -24,15 +30,22 @@
   pdfcreator = {\LaTeX\ with package \flqq hyperref \frqq},
   colorlinks,linkcolor=,urlcolor=links
 }
-%\usepackage{multimedia} % for movie's later on
 
-\title{Energy Storage in Remote Australia: \\
-  conniptions and kerfuffles}
-\author{Phil Maker \href{mailto:philip.maker@gmail.com}{\texttt{<philip.maker@gmail.com>}}}
+# select various versions
+\usepacakge{comment}
+\excludecomment{nt-solar-concentrators}
+\includecomment{nt-tkln}
+
+
+\title{PV Diesel 101}
+\author{Phil Maker
+  \href{mailto:philip.maker@gmail.com}{\texttt{<philip.maker@gmail.com>}}
+}
 \institute{ACEP/Powerwater Remote Operations}
 \date{March 2014}
 \logo{\includegraphics[height=0.7cm]{logo.jpg}}
 \begin{document}
+
 \begin{frame}
   \maketitle
   \vspace{-1.2cm}
