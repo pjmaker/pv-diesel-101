@@ -1,9 +1,9 @@
 %
 % main.tex - a typical phil presentation
 %
-% Copyright (c) 2011, Phil Maker
+% Copyright (c) 2015, Phil Maker
+% GPL v2
 % 
-% All rights reserved.
 %    
 \documentclass{beamer}
 %\documentclass[a4paper,handout]{beamer}
@@ -17,22 +17,26 @@
 numbers=right,stepnumber=5,%
 firstnumber=\the\inputlineno]}%
 {\endVerbatim}
-
 \usepackage[english]{babel}
-\usepackage[latin1]{inputenc}
+%\usepackage[latin1]{inputenc}
 \usepackage{hyperref}
 \definecolor{links}{HTML}{2A1B81}
 \hypersetup{
   pdftitle = {PV Diesel 101},
   pdfsubject = {PV Diesel}
   pdfkeywords = {Energy, Renewables, Powerwater, Phil Maker},
-  pdfauthor = {\textcopyright\ Phil Maker, ..},
+  pdfauthor = {\textcopyright\ Phil Maker, ...},
   pdfcreator = {\LaTeX\ with package \flqq hyperref \frqq},
   colorlinks,linkcolor=,urlcolor=links
 }
+\usepackage{xcolor}
+\definecolor{JungleGreen}{cmyk}{0.99,0,0.52,0}
+\definecolor{BlueGreen}{cmyk}{0.85,0,0.33,0}
+\definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+\def\dill#1{\textcolor{RawSienna}{\textbf{Dill Alert: #1}}}
 
-# select various versions
-\usepacakge{comment}
+% select various versions
+\usepackage{comment}
 \excludecomment{nt-solar-concentrators}
 \includecomment{nt-tkln}
 
@@ -41,7 +45,7 @@ firstnumber=\the\inputlineno]}%
 \author{Phil Maker
   \href{mailto:philip.maker@gmail.com}{\texttt{<philip.maker@gmail.com>}}
 }
-\institute{ACEP/Powerwater Remote Operations}
+\institute{Powerwater Remote Operations/ACEP}
 \date{March 2014}
 \logo{\includegraphics[height=0.7cm]{logo.jpg}}
 \begin{document}
@@ -50,70 +54,322 @@ firstnumber=\the\inputlineno]}%
   \maketitle
   \vspace{-1.2cm}
   \begin{abstract}
-    \small A review of energy storage in hybrid systems in Remote Australia
-    including the messy bits (well a wee bit at least).
+    \small An introduction to PV Diesel Systems including principles
+    of operation for medium and high penetration systems.
   \end{abstract}
 \end{frame}
 
 \section{Overview}
-\begin{frame}\frametitle{Where: Australia}
-\begin{columns}
-\begin{column}{7cm}
-  \includegraphics[width=6cm]{AU.png}
-\end{column}
-\begin{column}{5cm}\it
-\href{http://www.kiplingsociety.co.uk/poems_serving.htm}{``I keep six honest serving men,
-They taught me all I knew,
-Their names are What and Why and When
-And How and Where and Who.''} -- \href{http://en.wikipedia.org/Rudyard_Kipling}{Kipling}
-\pause
-\begin{itemize}
-\item Energy storage in NT/WA.\pause
-\item And the conniptions and kerfuffles (see handbook).\pause
-\item Feel free to interrupt or redirect me.
-\end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-
-\section{Northern Territory}
-\begin{frame}\frametitle{Northern Territory/\href{http://www.powerwater.com.au}{Powerwater}}
-\begin{columns}
-\begin{column}{5cm}
-\includegraphics[width=5cm]{PW_map_section_A4.jpg}
-\end{column}
-\begin{column}{6cm}
+\begin{frame}\frametitle{Overview}
+  This talk covers:
   \begin{itemize}
-  \item Early \href{http://www.sma.de/en.html}{SMA} systems for delaying gen switch up (20y lifetime).
-  \item Small ($\approx$ 50kW) PV/Wind systems.
-  \item Concentrated PV with limited smoothing.
-  \item \href{http://www.epuron.com.au/project/tkln}{Ti Tree, Kalkarindji and Lake Nash} ($\approx$ 1MW total PV, 80\%
-    peak penetration).
-  \item \href{http://www.powerwater.com.au/solardiesel}{ASIM and Solar Diesel Handbook.}
-  \item Medium Pen Rollout.
-  \item High Pen Diesel off systems.
+  \item Electricty, PV, Diesel, Control.
+  \item How PV/Diesel Systems can be applied in isolated grids.
   \end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
+  \pause
+  It is \emph{not} about::
 
-\section{So..}
-\begin{frame}\frametitle{So what!}
   \begin{itemize}
-  \item Share our lessons learnt in a frank fashion.\pause
-  \item Chemistry is difficult.\pause
-  \item Its not just the technology.\pause
-  \item Don't look at the problem just from your interests, e.g. in my case
-    control systems.\pause
-  \item Try to replicate projects/share risks,\pause
-    particularly with remote battery chemistry.
+  \item Procurement, Kit, ....
+  \item Operations,...
   \end{itemize}
 
-\vfill
+  \pause
+  There will be another chat about that, this is why and how not what..
+  \vfill
   \begin{quote}
-``Learning is not compulsory... \par\pause
-neither is survival'' -- W. Edwards Deming
+    ``There had been certain difficulties during
+    the expedition and afterwards, There was
+    no use denying it, I had simply told the
+    story from my own point of view, as
+    honestly as I could'' -– Tenzing Norgay.     
   \end{quote}
+\end{frame}
+
+\begin{frame}\frametitle{Conventions and References}
+  \begin{itemize}
+  \item \href{http://www.powerwater.com.au/solardiesel}{Solar
+      Diesel Handbook} - a handbook about this.topic.
+    \pause
+  \item \href{http://www.powerwater.com.au/solardiesel}{ASIM} - a
+    simulator for PV Hybrid Systems
+    \pause
+  \item Naming conventions are as for ASIM: 
+    \begin{itemize}
+    \item Pv = Photo Voltaic, Gen = Generator, Load = Load, ...
+    \item P = power, Q = reactive power, I = current
+    \end{itemize}
+    So what is:
+    \begin{itemize}
+    \item \texttt{Gen3P}. \texttt{GenP}, ...
+    \item \texttt{PvSetP}. \texttt{Gen2I3}
+    \end{itemize}
+    \pause 
+  \item See also Ackermann for Wind Diesel Hybrid Systems.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Penetration and Contribution}
+  \begin{itemize}
+  \item \textbf{Power (kW)}, i.e. what is being used/generated now.
+    \pause
+    \begin{enumerate}
+    \item Generation and Loads must balance: \texttt{GenP + PvP = LoadP}
+    \item \textbf{Instantaneous Penetration} is the. 
+      \% of renewable power (kW) at this time: \texttt{100 * PvP/LoadP}
+    \end{enumerate}
+    \pause
+  \item \textbf{Energy (kWh)}, i.e. what power has been used over a
+    period.
+    \pause
+    \begin{enumerate}
+    \item Over any period kWh must balance.
+    \item \textbf{Average Penetration} is the \% of renewable energy
+      (kWh) over a period (typically year): \texttt{100 * PvE/LoadE}
+    \end{enumerate}
+    \pause
+  \item So a system with a \textbf{Peak Instantaneous Penetration} of
+    60\% might have a \textbf{Average Penetration} of 15\%.
+  \item \textbf{Penetration} is also known as \textbf{Contribution}
+    \pause
+  \end{itemize}
+  \dill{never confuse peak with average or kW and kWh!}
+
+\end{frame}
+
+\begin{frame}\frametitle{It is not all just about kW}
+  \begin{itemize}
+  \item \textbf{Frequency (Hz)}, typically ranging from 49 to 51Hz.
+    (cycles per second for the boffins).
+  \item \textbf{Voltage (V)}, typically 430V, for the hydro analogy
+    this is height.
+  \item \textbf{Current (I)}, for the hydro analogy this is flow rate.
+    \pause
+  \item \textbf{Reactive Power (vars)}, regulates the voltage, similar
+    to kW it must balance:
+    
+    \texttt{GenQ = LoadQ}
+  \end{itemize}
+  Note that:
+  \begin{itemize}
+  \item Increasing \texttt{P} results in an increase \texttt{F}.
+  \item And a decrease in \texttt{P} results in a decreate in
+    \texttt{F}
+  \item Similarly for \texttt{Q} and \texttt{V}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Capacity factor, Spinning Reserve}
+  \begin{itemize}
+  \item \textbf{Capacity Factor}: is the energy generated divided by the
+    energy it would have generated at full power over a period (year).
+    \pause
+    \begin{enumerate}
+    \item PV: 20\% since the sun doesn't shine all the time.
+    \item Wind: typically 25\% up to 57\% 
+    \item US Coal is 63\%, U.S. Nuclear is 93\%.
+    \item Three Gorges dam is around 50\%.
+    \end{enumerate}
+    \pause
+  \item \textbf{Spinning Reserve}: the available spare power
+    in the system: 
+    \texttt{SpinP = GenMaxP - GenP}
+    \pause
+  \item \textbf{Step Load}: the capability to take a single
+    immediate increase in load. Typically: 
+
+    \texttt{StepP $<$ SpinP}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Sharing: Droop, Isochronous and Setpoints}
+Consider a two generator example:\pause
+  \begin{itemize}
+  \item Everything has to balance: \texttt{Gen1P + Gen2P = LoadP}\pause
+  \item Load must be shared between generators: 
+    \texttt{Gen1P/Gen1MaxP near Gen2P/Gen2MaxP}
+  \end{itemize}
+  This can be achieved by:
+  \begin{itemize}
+  \item \textbf{Droop:} uses frequency to communicate load, e.g.
+    49.5Hz generator runs at 100\% capacity, at 50.5Hz it runs at 0\%.
+    \pause
+  \item \textbf{Isochronous}: uses a separate load sharing line 
+    so that each generator can share whilst keeping frequency around
+    50Hz.\pause
+  \item \textbf{Setpoint control}: can be used to control output of
+    devices but we need a mixture of Droop and Isochronous in order to
+    balance the system.
+  \end{itemize}
+\end{frame}
+
+\section{No Penetration}
+\begin{frame}\frametitle{No Penetration PV}
+  \begin{itemize}
+  \item Start and stop diesel in order to keep:
+    
+    \texttt{SpinP > SpinMinPPa} 
+  \item For a 500kW system \texttt{SpinMinPPa} might
+    be 30kW. It is typically the largest load in town.  \pause
+  \item Always try to run the smallest set possibe but:
+    \begin{itemize}
+    \item Always run a set for perhaps 30 minutes after starting it.
+    \item Switch down only after the load has gone dow, n a bit further
+      (\texttt hysterisis).
+    \item Many other things...
+    \end{itemize}
+    \pause
+  \item Sets sizes need to selected based on load.
+    \begin{itemize}
+    \item Either all the same and run them together.
+    \item All different, e.g. small, medium and large.
+    \end{itemize}
+    \pause
+  \item Generators have to be loaded properly (both low and high).
+  \end{itemize}
+  \pause
+  \dill{Lets replace Station X with 2 x 1MW containerised sets where 
+  load varies from 500..1400 kW}
+\end{frame}
+
+\section{Low Penetration}
+\begin{frame}\frametitle{Low Penetration PV}
+  \begin{itemize}
+  \item No control of PV, just let it run at full power all the time.
+    \pause
+  \item Depend on the normal spinning reserve to handle
+    cloud events.
+    \pause
+  \item A bad cloud event on a 20m wide PV field might take 10s, e.g.
+    \begin{enumerate}
+    \item Wind speed at 1000m = 10m/s
+    \item Field is 50m across.
+    \item Result is obvious, i.e. PV variability depends on wind speed.
+    \end{enumerate}
+  \item Limited to around 10-20\% penetration (which one?)
+  \end{itemize}
+  \dill{Do you want to manage a power system where we keep 30kW of
+    Spinning Reserve and try to put 60kW of PV.}
+\end{frame}
+
+\section{Medium Penetration}
+\begin{frame}\frametitle{Medium Penetration PV}
+Medium penetration systems typically do not use storage and
+reach a peak penetration of round 60\% for a 40\% minmum generator
+loading.
+\pause
+  \begin{enumerate}
+  \item Active control of generation and PV in order to maintain:
+    
+    \texttt{PvP <= SpinP}
+
+    So if all the PV disappears before we can start a diesel we will
+    be alright.
+    \pause
+  \item We also need to maintain diesel loading above a threshold:
+    
+    \texttt{GenP >= GenMinP}
+
+    In order to avoid damage to diesel generation.
+    \pause
+  \item So control:\texttt{GenMaxP} and \texttt{PvSetP} in order to
+    meet 1 and 2.
+  \end{enumerate}
+
+\end{frame}
+
+\section{High Penetration}
+\begin{frame}\frametitle{High Penetration PV}
+A high penetration system requires some sort of:
+
+\begin{itemize}
+\item Load dump
+\item Energy storage: flywheels, batteries, synchronous condensers.
+\item Advanced control
+\end{itemize}
+
+In order to achieve above 90\% peak penetration.
+\pause
+
+Note: you need either a generator, synchronous condenser or
+Grid Forming Inverter run Diesel Off. This is not the normal 
+PV inverter. Remeber we need to balance things!
+\pause 
+\vfill
+Examples are available from WA, AQ, AK, MY, ID, etc.
+\vfill
+But its not off the shelf for larger systems.
+\end{frame}
+
+\section{Powerfactor}
+\begin{frame}\frametitle{Powerfactor}
+Powerfactor is the ratio between \texttt{P} and \texttt{S} where
+\begin{itemize}
+\item \texttt{P} is the kW loading,\texttt{S} is the kVA loading,
+  i.e. the current x volts, \texttt{Q} is the kvar loading 
+\item \texttt{P+Q = S}
+\end{itemize}
+\includegraphics[width=6cm]{pf.pdf}
+
+\dill{At low loads my powerfactor is bad}
+\pause Tell someone who cares, its current that matters.
+\end{frame}
+
+\section{Diesel}
+\begin{frame}\frametitle{Efficiency}
+\includegraphics[width=10cm]{limits/figFuelCurve1.pdf}
+
+\dill{So clearly we need to run diesels at around 80\% load 
+  so they are efficient}
+\end{frame}
+
+\begin{frame}\frametitle{Consumption}
+\includegraphics[width=10cm]{limits/figFuelCurve2.pdf}
+
+\dill{Uhm: so its two parts, X for spinning reserve and
+  Y for each kW produced. We better use the smallest set then.}
+\end{frame}
+
+\section{Other things}
+\begin{frame}\frametitle{Sky Camera Forecasting}
+Use the sky:camera to predict over 2 minutes:
+
+\includegraphics[width=6cm]{batch-2014-07-28T165557+0930-basis.jpg}
+
+So you can run a smaller diese: 2 x 320 vs 1 x 320 is around 30k\$/y.
+\end{frame}
+
+\begin{frame}\frametitle{Demand Management}
+Control \texttt{LoadP} so we can turn off load, perhaps using:
+
+\begin{description}
+\item[Green Power Point] power iff there is excess green power.
+\item[Brown Power Point] we assure power but there might be an outage
+  for 2 minutes whilst we start a diesel.
+\item[Red Power Point] always on.
+\end{description}
+
+The key thing is we need two way control and measurement.
+See \href{http://www.saturnsouth.com}{Saturn South}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}\frametitle{So what}
+Finally, we've covered about 20 years research and development in
+the last wee while.\pause
+
+
+Feel free to finger poken the author but also try to avoid the dill
+tests.
+\vfill
+\pause
+Finally:
+\begin{quote}
+“Learning is not compulsory...
+
+\pause
+neither is survival” – W. Edwards Deming
+\end{quote}
 \end{frame}
 \end{document}
 
