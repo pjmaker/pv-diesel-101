@@ -39,7 +39,6 @@ firstnumber=\the\inputlineno]}%
 \usepackage{comment}
 \excludecomment{nt-solar-concentrators}
 \includecomment{nt-tkln}
-
 
 \title{PV Diesel 101}
 \author{Phil Maker
@@ -63,7 +62,7 @@ firstnumber=\the\inputlineno]}%
 \begin{frame}\frametitle{Overview}
   This talk covers:
   \begin{itemize}
-  \item Electricty, PV, Diesel, Control.
+  \item Electricity, PV, Diesel, Control.
   \item How PV/Diesel Systems can be applied in isolated grids.
   \end{itemize}
   \pause
@@ -92,7 +91,7 @@ firstnumber=\the\inputlineno]}%
       Diesel Handbook} - a handbook about this.topic.
     \pause
   \item \href{http://www.powerwater.com.au/solardiesel}{ASIM} - a
-    simulator for PV Hybrid Systems
+    simulator for PV Hybrid Systems (also see HOMER).
     \pause
   \item Naming conventions are as for ASIM: 
     \begin{itemize}
@@ -101,8 +100,8 @@ firstnumber=\the\inputlineno]}%
     \end{itemize}
     So what is:
     \begin{itemize}
-    \item \texttt{Gen3P}. \texttt{GenP}, ...
-    \item \texttt{PvSetP}. \texttt{Gen2I3}
+    \item \texttt{Gen3P}, \texttt{GenP}, ...
+    \item \texttt{PvSetP}, \texttt{Gen2I3}
     \end{itemize}
     \pause 
   \item See also Ackermann for Wind Diesel Hybrid Systems.
@@ -129,7 +128,7 @@ firstnumber=\the\inputlineno]}%
     \end{enumerate}
     \pause
   \item So a system with a \textbf{Peak Instantaneous Penetration} of
-    60\% might have a \textbf{Average Penetration} of 15\%.
+    60\% might result in an \textbf{Average Penetration} of 15\%.
   \item \textbf{Penetration} is also known as \textbf{Contribution}
     \pause
   \end{itemize}
@@ -157,6 +156,10 @@ firstnumber=\the\inputlineno]}%
     \texttt{F}
   \item Similarly for \texttt{Q} and \texttt{V}.
   \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{PV good days and bad days}
+  \includegraphics[width=12cm]{stuff/gday.pdf}
 \end{frame}
 
 \begin{frame}\frametitle{Capacity factor, Spinning Reserve}
@@ -208,10 +211,10 @@ Consider a two generator example:\pause
   \begin{itemize}
   \item Start and stop diesel in order to keep:
     
-    \texttt{SpinP > SpinMinPPa} 
+    \texttt{SpinP > SpinMinPPa}
   \item For a 500kW system \texttt{SpinMinPPa} might
     be 30kW. It is typically the largest load in town.  \pause
-  \item Always try to run the smallest set possibe but:
+  \item Always try to run the smallest set possible but:
     \begin{itemize}
     \item Always run a set for perhaps 30 minutes after starting it.
     \item Switch down only after the load has gone dow, n a bit further
@@ -219,7 +222,7 @@ Consider a two generator example:\pause
     \item Many other things...
     \end{itemize}
     \pause
-  \item Sets sizes need to selected based on load.
+  \item Generator sizes need to selected based on load.
     \begin{itemize}
     \item Either all the same and run them together.
     \item All different, e.g. small, medium and large.
@@ -238,24 +241,27 @@ Consider a two generator example:\pause
   \item No control of PV, just let it run at full power all the time.
     \pause
   \item Depend on the normal spinning reserve to handle
-    cloud events.
+    cloud events. Typical generator start times are around 1 minute.
     \pause
-  \item A bad cloud event on a 20m wide PV field might take 10s, e.g.
+    \dill{PV varies once every minute for data sampled once 
+      every minute}
+    \pause
+  \item A bad cloud event typically takes 10s, e.g.
     \begin{enumerate}
-    \item Wind speed at 1000m = 10m/s
+    \item Wind speed at 1000m = 5m/s
     \item Field is 50m across.
     \item Result is obvious, i.e. PV variability depends on wind speed.
     \end{enumerate}
-  \item Limited to around 10-20\% penetration (which one?)
+  \item Low Penetration is limited to 10..20\% (spinning reserve).
   \end{itemize}
-  \dill{Do you want to manage a power system where we keep 30kW of
-    Spinning Reserve and try to put 60kW of PV.}
+  \dill{Designs a power system where we keep 30kW of
+    Spinning Reserve and try to install 60kW of PV.}
 \end{frame}
 
 \section{Medium Penetration}
 \begin{frame}\frametitle{Medium Penetration PV}
 Medium penetration systems typically do not use storage and
-reach a peak penetration of round 60\% for a 40\% minmum generator
+reach a peak penetration of perhaps 60\% for a 40\% minmum generator
 loading.
 \pause
   \begin{enumerate}
@@ -275,7 +281,25 @@ loading.
   \item So control:\texttt{GenMaxP} and \texttt{PvSetP} in order to
     meet 1 and 2.
   \end{enumerate}
+\end{frame}
 
+\begin{frame}\frametitle{Medium Penetration Example}
+  \begin{itemize}
+  \item Keep enough spinning reserve online: 
+    \texttt{GenMaxP >= GenP + max(PvP,GenSpinPPa)}
+   \pause
+  \item So loss of 100\% of the Pv over 10s will be covered by the
+    diesel.
+    \pause
+  \item We must limit PV output in order to the diesels loaded:
+    \texttt{PvSetP = LoadP - GenMinP}
+    \pause
+  \item The system must keep a diesel online all the time,
+    the PV cannot create the grid (vars, ...)
+    \pause
+  \item Finally: if min loading is 40\% the maximum penetration
+    is 60\% if the loads match the generators.
+  \end{itemize}
 \end{frame}
 
 \section{High Penetration}
@@ -293,7 +317,7 @@ In order to achieve above 90\% peak penetration.
 
 Note: you need either a generator, synchronous condenser or
 Grid Forming Inverter run Diesel Off. This is not the normal 
-PV inverter. Remeber we need to balance things!
+PV inverter. Remember we need to balance P and Q.
 \pause 
 \vfill
 Examples are available from WA, AQ, AK, MY, ID, etc.
@@ -304,39 +328,54 @@ But its not off the shelf for larger systems.
 \section{Powerfactor}
 \begin{frame}\frametitle{Powerfactor}
 Powerfactor is the ratio between \texttt{P} and \texttt{S} where
+\texttt{S=P+Q}.
 \begin{itemize}
 \item \texttt{P} is the kW loading,\texttt{S} is the kVA loading,
-  i.e. the current x volts, \texttt{Q} is the kvar loading 
-\item \texttt{P+Q = S}
+  i.e. the current x volts, \texttt{Q} is the kvar loading.
+\pause
+\item Typically 0.8 to 0.9, 1.0 means its just a resistor.
 \end{itemize}
+\pause
 \includegraphics[width=6cm]{pf.pdf}
+\pause
 
-\dill{At low loads my powerfactor is bad}
-\pause Tell someone who cares, its current that matters.
+\dill{At low loads my powerfactor is bad, panic}
 \end{frame}
 
-\section{Diesel}
-\begin{frame}\frametitle{Efficiency}
+\section{Diesels}
+\begin{frame}\frametitle{Fuel Efficiency}
 \includegraphics[width=10cm]{limits/figFuelCurve1.pdf}
+\pause
 
 \dill{So clearly we need to run diesels at around 80\% load 
   so they are efficient}
 \end{frame}
 
-\begin{frame}\frametitle{Consumption}
+\begin{frame}\frametitle{Fuel Consumption}
 \includegraphics[width=10cm]{limits/figFuelCurve2.pdf}
+\pause
 
-\dill{Uhm: so its two parts, X for spinning reserve and
-  Y for each kW produced. We better use the smallest set then.}
+\begin{itemize}
+\item This makes sense since diesels run at fixed speed.
+\pause
+\item So there is a cost for spinning and a cost for generating.
+\pause
+\item So every bit of PV saves fuel, running a smaller generator
+  saves fuel.
+\end{itemize}
 \end{frame}
 
-\section{Other things}
+\section{Others}
 \begin{frame}\frametitle{Sky Camera Forecasting}
-Use the sky:camera to predict over 2 minutes:
+Use the SkyCamera to predict cloud over the next 2 minutes:
+\pause
+\includegraphics[width=4cm]{batch-2014-07-28T165557+0930-basis.jpg}
+\pause
 
-\includegraphics[width=6cm]{batch-2014-07-28T165557+0930-basis.jpg}
+So you can run a smaller diesel: 2 x 320 vs 1 x 320 is around 30k\$/y.
+\pause
 
-So you can run a smaller diese: 2 x 320 vs 1 x 320 is around 30k\$/y.
+Then start the diesel when the cloud comes.
 \end{frame}
 
 \begin{frame}\frametitle{Demand Management}
@@ -355,15 +394,11 @@ See \href{http://www.saturnsouth.com}{Saturn South}
 
 \section{Conclusion}
 \begin{frame}\frametitle{So what}
-Finally, we've covered about 20 years research and development in
+Note we've covered about 20 years research and development in
 the last wee while.\pause
 
-
-Feel free to finger poken the author but also try to avoid the dill
-tests.
-\vfill
-\pause
-Finally:
+Feel free to finger poken the gentle speaker but also try to avoid the
+dill tests.  \vfill \pause Finally:
 \begin{quote}
 “Learning is not compulsory...
 
