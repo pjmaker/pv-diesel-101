@@ -88,7 +88,7 @@ firstnumber=\the\inputlineno]}%
 \begin{frame}\frametitle{Conventions and References}
   \begin{itemize}
   \item \href{http://www.powerwater.com.au/solardiesel}{Solar
-      Diesel Handbook} - a handbook about this.topic.
+      Diesel Handbook} - a handbook about this topic.
     \pause
   \item \href{http://www.powerwater.com.au/solardiesel}{ASIM} - a
     simulator for PV Hybrid Systems (also see HOMER).
@@ -114,7 +114,7 @@ firstnumber=\the\inputlineno]}%
     \pause
     \begin{enumerate}
     \item Generation and Loads must balance: \texttt{GenP + PvP = LoadP}
-    \item \textbf{Instantaneous Penetration} is the. 
+    \item \textbf{Instantaneous Penetration} is the 
       \% of renewable power (kW) at this time: \texttt{100 * PvP/LoadP}
     \end{enumerate}
     \pause
@@ -162,10 +162,10 @@ firstnumber=\the\inputlineno]}%
   \includegraphics[width=12cm]{stuff/gday.pdf}
 \end{frame}
 
-\begin{frame}\frametitle{Capacity factor, Spinning Reserve}
+\begin{frame}\frametitle{Capacity factor, Spinning Reserve, Step Load}
   \begin{itemize}
   \item \textbf{Capacity Factor}: is the energy generated divided by the
-    energy it would have generated at full power over a period (year).
+    energy it would have generated at full power over a period.
     \pause
     \begin{enumerate}
     \item PV: 20\% since the sun doesn't shine all the time.
@@ -217,7 +217,7 @@ Consider a two generator example:\pause
   \item Always try to run the smallest set possible but:
     \begin{itemize}
     \item Always run a set for perhaps 30 minutes after starting it.
-    \item Switch down only after the load has gone dow, n a bit further
+    \item Switch down only after the load has gone down a bit further
       (\texttt hysterisis).
     \item Many other things...
     \end{itemize}
@@ -286,6 +286,7 @@ loading.
 \begin{frame}\frametitle{Medium Penetration Example}
   \begin{itemize}
   \item Keep enough spinning reserve online: 
+
     \texttt{GenMaxP >= GenP + max(PvP,GenSpinPPa)}
    \pause
   \item So loss of 100\% of the Pv over 10s will be covered by the
@@ -316,8 +317,11 @@ In order to achieve above 90\% peak penetration.
 \pause
 
 Note: you need either a generator, synchronous condenser or
-Grid Forming Inverter run Diesel Off. This is not the normal 
+Grid Forming Inverter in order to run Diesel Off. 
+
+This is not the normal 
 PV inverter. Remember we need to balance P and Q.
+(Faults are left for the 102 course).
 \pause 
 \vfill
 Examples are available from WA, AQ, AK, MY, ID, etc.
@@ -403,7 +407,7 @@ dill tests.  \vfill \pause Finally:
 “Learning is not compulsory...
 
 \pause
-neither is survival” – W. Edwards Deming
+neither is survival” -– W. Edwards Deming
 \end{quote}
 \end{frame}
 \end{document}
