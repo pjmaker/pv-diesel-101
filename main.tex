@@ -2,13 +2,15 @@
 % main.tex - a typical phil presentation
 %
 % Copyright (c) 2015, Phil Maker
-% GPL v2
+% GPLv2 
 % 
 %    
-%\documentclass{beamer}
-\documentclass[a4paper,handout]{beamer}
-\usepackage{pgfpages}
-\pgfpagesuselayout{8 on 1}[a4paper,border shrink=5mm]
+
+\documentclass{beamer}
+%\documentclass[a4paper,handout]{beamer}
+%\usepackage{pgfpages}
+%\pgfpagesuselayout{6 on 1}[a4paper,border shrink=5mm]
+
 \mode<presentation>{\usetheme{Pjm}}
 \usepackage{graphics}
 \usepackage{fancyvrb}
@@ -298,7 +300,26 @@ loading.
     the PV cannot create the grid (vars, ...)
     \pause
   \item Finally: if min loading is 40\% the maximum penetration
-    is 60\% if the loads match the generators.
+    is 60\% sif the loads match the generators.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Spill}
+  \begin{itemize}
+  \item \texttt{PvAvailP > PvSetP} so we are wasting PV.
+    \pause
+    \dill{Is this a bad thing, splling?}
+    \pause
+  \item Inevitable in Medium Penetration Systems.
+    \pause
+  \item We need to minimize spill by:
+    \pause
+    \begin{itemize}
+    \item Appropriate Generator sizing.
+    \item Controlling load profiles.
+    \end{itemize}
+  \item Note that most of the cost of the PV in is
+    in the mobilisation, i.e. its X+Y*K not Y*K.
   \end{itemize}
 \end{frame}
 
