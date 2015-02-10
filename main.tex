@@ -5,10 +5,10 @@
 % GPL v2
 % 
 %    
-\documentclass{beamer}
-%\documentclass[a4paper,handout]{beamer}
-%\usepackage{pgfpages}
-%\pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm]
+%\documentclass{beamer}
+\documentclass[a4paper,handout]{beamer}
+\usepackage{pgfpages}
+\pgfpagesuselayout{8 on 1}[a4paper,border shrink=5mm]
 \mode<presentation>{\usetheme{Pjm}}
 \usepackage{graphics}
 \usepackage{fancyvrb}
@@ -151,9 +151,8 @@ firstnumber=\the\inputlineno]}%
   \end{itemize}
   Note that:
   \begin{itemize}
-  \item Increasing \texttt{P} results in an increase \texttt{F}.
-  \item And a decrease in \texttt{P} results in a decreate in
-    \texttt{F}
+  \item If \texttt{(GenP or PvP > LoadP} then \texttt{F} increases.
+  \item And vice versa
   \item Similarly for \texttt{Q} and \texttt{V}.
   \end{itemize}
 \end{frame}
