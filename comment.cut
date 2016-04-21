@@ -1,75 +1,3 @@
-%
-% main.tex - a typical phil presentation
-%
-% Copyright (c) 2015, Phil Maker
-% GPLv2 
-% 
-%    
-
-\documentclass{beamer}
-%\documentclass[a4paper,handout]{beamer}
-%\usepackage{pgfpages}
-%\pgfpagesuselayout{6 on 1}[a4paper,border shrink=5mm]
-
-\mode<presentation>{\usetheme{Pjm}}
-\usepackage{graphics}
-\usepackage{fancyvrb}
-\newenvironment{code}
-{\Verbatim[fontfamily=courier,%
-numbers=right,stepnumber=5,%
-firstnumber=\the\inputlineno]}%
-{\endVerbatim}
-\usepackage[english]{babel}
-%\usepackage[latin1]{inputenc}
-\usepackage{hyperref}
-\definecolor{links}{HTML}{2A1B81}
-\hypersetup{
-  pdftitle = {PV Diesel 101},
-  pdfsubject = {PV Diesel}
-  pdfkeywords = {Energy, Renewables, Powerwater, Phil Maker},
-  pdfauthor = {\textcopyright\ Phil Maker, ...},
-  pdfcreator = {\LaTeX\ with package \flqq hyperref \frqq},
-  colorlinks,linkcolor=,urlcolor=links
-}
-\usepackage{xcolor}
-\definecolor{JungleGreen}{cmyk}{0.99,0,0.52,0}
-\definecolor{BlueGreen}{cmyk}{0.85,0,0.33,0}
-\definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
-\def\dill#1{\textcolor{RawSienna}{\textbf{Dill Alert: #1}}}
-
-% select various versions
-\usepackage{comment}
-\includecomment{pwc-pv-diesel-101}
-\includecomment{pwc-SETuP}
-
-\title{PV Diesel 101}
-\author{Phil Maker\\
-  \href{mailto:philip.maker@gmail.com}{\texttt{<philip.maker@gmail.com>}}
-}
-\institute{Powerwater Remote Operations/ACEP}
-\date{March 2014}
-\logo{\includegraphics[height=0.7cm]{logo.jpg}}
-\begin{document}
-
-\begin{frame}
-  \maketitle
-  \vspace{-1.2cm}
-  \begin{abstract}
-    \small An introduction to PV Diesel Systems including principles
-    of operation for medium and high penetration systems.
-  \end{abstract}
-\end{frame}
-
-\begin{pwc-SETuP}
-\section{SETuP}
-\begin{frame}\frametitle{SETuP} 
-  \begin{itemize}
-  \item Happy
-  \end{itemize}
-\end{frame}
-\end{pwc-SETuP}
-
-\begin{pwc-pv-diesel-101}
 \section{Overview}
 \begin{frame}\frametitle{Overview}
   This talk covers:
@@ -93,7 +21,7 @@ firstnumber=\the\inputlineno]}%
     the expedition and afterwards, There was
     no use denying it, I had simply told the
     story from my own point of view, as
-    honestly as I could'' -– Tenzing Norgay.     
+    honestly as I could'' -– Tenzing Norgay.
   \end{quote}
 \end{frame}
 
@@ -105,7 +33,7 @@ firstnumber=\the\inputlineno]}%
   \item \href{http://www.powerwater.com.au/solardiesel}{ASIM} - a
     simulator for PV Hybrid Systems (also see HOMER).
     \pause
-  \item Naming conventions are as for ASIM: 
+  \item Naming conventions are as for ASIM:
     \begin{itemize}
     \item Pv = Photo Voltaic, Gen = Generator, Load = Load, ...
     \item P = power, Q = reactive power, I = current
@@ -115,7 +43,7 @@ firstnumber=\the\inputlineno]}%
     \item \texttt{Gen3P}, \texttt{GenP}, ...
     \item \texttt{PvSetP}, \texttt{Gen2I3}
     \end{itemize}
-    \pause 
+    \pause
   \item See also Ackermann for Wind Diesel Hybrid Systems.
   \end{itemize}
 \end{frame}
@@ -126,7 +54,7 @@ firstnumber=\the\inputlineno]}%
     \pause
     \begin{enumerate}
     \item Generation and Loads must balance: \texttt{GenP + PvP = LoadP}
-    \item \textbf{Instantaneous Penetration} is the 
+    \item \textbf{Instantaneous Penetration} is the
       \% of renewable power (kW) at this time: \texttt{100 * PvP/LoadP}
     \end{enumerate}
     \pause
@@ -158,7 +86,7 @@ firstnumber=\the\inputlineno]}%
     \pause
   \item \textbf{Reactive Power (vars)}, regulates the voltage, similar
     to kW it must balance:
-    
+
     \texttt{GenQ = LoadQ}
   \end{itemize}
   Note that:
@@ -180,17 +108,17 @@ firstnumber=\the\inputlineno]}%
     \pause
     \begin{enumerate}
     \item PV: 20\% since the sun doesn't shine all the time.
-    \item Wind: typically 25\% up to 57\% 
+    \item Wind: typically 25\% up to 57\%
     \item US Coal is 63\%, U.S. Nuclear is 93\%.
     \item Three Gorges dam is around 50\%.
     \end{enumerate}
     \pause
   \item \textbf{Spinning Reserve}: the available spare power
-    in the system: 
+    in the system:
     \texttt{SpinP = GenMaxP - GenP}
     \pause
   \item \textbf{Step Load}: the capability to take a single
-    immediate increase in load. Typically: 
+    immediate increase in load. Typically:
 
     \texttt{StepP $<$ SpinP}
   \end{itemize}
@@ -200,7 +128,7 @@ firstnumber=\the\inputlineno]}%
 Consider a two generator example:\pause
   \begin{itemize}
   \item Everything has to balance: \texttt{Gen1P + Gen2P = LoadP}\pause
-  \item Load must be shared between generators: 
+  \item Load must be shared between generators:
     \texttt{Gen1P/Gen1MaxP near Gen2P/Gen2MaxP}
   \end{itemize}
   This can be achieved by:
@@ -208,7 +136,7 @@ Consider a two generator example:\pause
   \item \textbf{Droop:} uses frequency to communicate load, e.g.
     49.5Hz generator runs at 100\% capacity, at 50.5Hz it runs at 0\%.
     \pause
-  \item \textbf{Isochronous}: uses a separate load sharing line 
+  \item \textbf{Isochronous}: uses a separate load sharing line
     so that each generator can share whilst keeping frequency around
     50Hz.\pause
   \item \textbf{Setpoint control}: can be used to control output of
@@ -221,7 +149,7 @@ Consider a two generator example:\pause
 \begin{frame}\frametitle{No Penetration PV}
   \begin{itemize}
   \item Start and stop diesel in order to keep:
-    
+
     \texttt{SpinP > SpinMinPPa}
   \item For a 500kW system \texttt{SpinMinPPa} might
     be 30kW. It is typically the largest load in town.  \pause
@@ -242,7 +170,7 @@ Consider a two generator example:\pause
   \item Generators have to be loaded properly (both low and high).
   \end{itemize}
   \pause
-  \dill{Lets replace Station X with 2 x 1MW containerised sets where 
+  \dill{Lets replace Station X with 2 x 1MW containerised sets where
   load varies from 500..1400 kW}
 \end{frame}
 
@@ -254,7 +182,7 @@ Consider a two generator example:\pause
   \item Depend on the normal spinning reserve to handle
     cloud events. Typical generator start times are around 1 minute.
     \pause
-    \dill{PV varies once every minute for data sampled once 
+    \dill{PV varies once every minute for data sampled once
       every minute}
     \pause
   \item A bad cloud event typically takes 10s, e.g.
@@ -277,14 +205,14 @@ loading.
 \pause
   \begin{enumerate}
   \item Active control of generation and PV in order to maintain:
-    
+
     \texttt{PvP <= SpinP}
 
     So if all the PV disappears before we can start a diesel we will
     be alright.
     \pause
   \item We also need to maintain diesel loading above a threshold:
-    
+
     \texttt{GenP >= GenMinP}
 
     In order to avoid damage to diesel generation.
@@ -296,7 +224,7 @@ loading.
 
 \begin{frame}\frametitle{Medium Penetration Example}
   \begin{itemize}
-  \item Keep enough spinning reserve online: 
+  \item Keep enough spinning reserve online:
 
     \texttt{GenMaxP >= GenP + max(PvP,GenSpinPPa)}
    \pause
@@ -347,12 +275,12 @@ In order to achieve above 90\% peak penetration.
 \pause
 
 Note: you need either a generator, synchronous condenser or
-Grid Forming Inverter in order to run Diesel Off. 
+Grid Forming Inverter in order to run Diesel Off.
 
-This is not the normal 
+This is not the normal
 PV inverter. Remember we need to balance P and Q.
 (Faults are left for the 102 course).
-\pause 
+\pause
 \vfill
 Examples are available from WA, AQ, AK, MY, ID, etc.
 \vfill
@@ -381,7 +309,7 @@ Powerfactor is the ratio between \texttt{P} and \texttt{S} where
 \includegraphics[width=10cm]{limits/figFuelCurve1.pdf}
 \pause
 
-\dill{So clearly we need to run diesels at around 80\% load 
+\dill{So clearly we need to run diesels at around 80\% load
   so they are efficient}
 \end{frame}
 
@@ -441,6 +369,3 @@ dill tests.  \vfill \pause Finally:
 neither is survival” -– W. Edwards Deming
 \end{quote}
 \end{frame}
-\end{pwc-pv-diesel-101}
-\end{document}
-

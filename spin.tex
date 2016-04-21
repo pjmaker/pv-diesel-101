@@ -1,0 +1,84 @@
+%
+% spin.tex - a spinning reserve explanation
+%
+% Copyright (c) 2015, Phil Maker
+% 
+% All rights reserved.
+%    
+% Redistribution and use in source and binary forms, with or without 
+% modification, are permitted provided that the following conditions 
+% are met:
+% 
+%  * Redistributions of source code must retain the above copyright
+%    notice, this list of conditions and the following disclaimer.
+%  * Redistributions in binary form must reproduce the above copyright
+%    notice, this list of conditions and the following disclaimer in
+%    the documentation and/or other materials provided with the
+%    distribution.
+%  * Neither the name of the Phil Maker nor the names of its
+%    contributors may be used to endorse or promote products derived
+%    from this software without specific prior written permission.
+%        
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+% "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+% LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+% A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+% OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+% SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+% LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+% THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+% (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+% OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+%
+
+\documentclass{beamer}
+%\documentclass[a4paper,handout]{beamer}
+%\usepackage{pgfpages}
+%\pgfpagesuselayout{6 on 1}[a4paper,border shrink=5mm]
+
+\mode<presentation>{\usetheme{Pjm}}
+\usepackage{graphics}
+\usepackage{fancyvrb}
+\newenvironment{code}
+{\Verbatim[fontfamily=courier,%
+numbers=right,stepnumber=5,%
+firstnumber=\the\inputlineno]}%
+{\endVerbatim}
+\usepackage[english]{babel}
+%\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{
+  pdftitle = {PV and Diesel Spinning Reserve},
+  pdfsubject = {PV Diesel}
+  pdfkeywords = {Energy, Renewables, Powerwater, Phil Maker},
+  pdfauthor = {\textcopyright\ Phil Maker, ...},
+  pdfcreator = {\LaTeX\ with package \flqq hyperref \frqq},
+  colorlinks,linkcolor=,urlcolor=links
+}
+\usepackage{xcolor}
+\definecolor{JungleGreen}{cmyk}{0.99,0,0.52,0}
+\definecolor{BlueGreen}{cmyk}{0.85,0,0.33,0}
+\definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+\def\dill#1{\textcolor{RawSienna}{\textbf{Dill Alert: #1}}}
+
+% select various versions
+\usepackage{comment}
+\begin{document}
+\begin{frame}\frametitle{Spinning Reserve}
+  \begin{itemize}
+  \item Running a bigger diesel costs more than running a little one.
+  \item The power station keeps a big enough diesel running to handle
+    the load PLUS the largest load in town, e.g. bore pump. 
+  \item It takes about a minute to start another diesel up.
+  \item Clouds take about 6-10 seconds to block the sun.
+  \end{itemize}
+  Since PWC know what the PWC plant is doing we can keep a big enoug
+  diesel running for the clouds.
+
+  But we don't know what a PV system on the roof is doing so
+  so the clouds might cause a blackout.
+\end{frame}
+\end{document}
+
